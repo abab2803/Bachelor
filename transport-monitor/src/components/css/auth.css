@@ -1,0 +1,40 @@
+
+body {
+    height: 70vh; /* Sett høyden til hele vinduet */
+    margin: 10; /* Fjern margin fra body */
+    display: flex;
+    justify-content: center; /* Sentrer horisontalt */
+    align-items: center; /* Sentrer vertikalt */
+    background-color: #f4f4f4; /* Legg til en bakgrunnsfarge hvis ønskelig */
+}
+
+
+.sign-in-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+.input-field {
+    display: block; /* Sørger for at hvert input er på en ny linje */
+    margin-bottom: 10px; /* Litt avstand mellom input-feltene */
+    width: 100%; /* Valgfritt, for å gjøre dem mer responsive */
+    padding: 10px; /* For å gi input-feltene bedre plass */
+    box-sizing: border-box; /* Gjør at padding ikke legger til ekstra bredde */
+  }
+
+  .profile-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profile-logo {
+    width: 200px;  /* Juster størrelsen på logoen */
+    height: 200px;
+    margin-bottom: 10px;  /* Litt avstand mellom logo og profilinformasjon */
+    margin-top: 50px;
+  }
+  
