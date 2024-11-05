@@ -11,7 +11,7 @@ body {
 
 .sign-in-container {
     width: 400px;
-    margin: 0 auto;
+    margin-top: 150px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -34,7 +34,7 @@ body {
   .profile-logo {
     width: 200px;  /* Juster størrelsen på logoen */
     height: 200px;
-    margin-bottom: 10px;  /* Litt avstand mellom logo og profilinformasjon */
-    margin-top: 50px;
+      /* Litt avstand mellom logo og profilinformasjon */
+    
   }
   

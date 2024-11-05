@@ -1,0 +1,70 @@
+/* Fullbredde header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;  /* Logo + lenker på venstre, logout på høyre */
+  align-items: center;  /* Sentraliserer vertikalt */
+  background-color: #1e94dd;  /* Rød bakgrunnsfarge */
+  padding: 10px 20px;
+  position: fixed;  /* Fikserer navbaren øverst på siden */
+  top: 0;
+  left: 0;
+  z-index: 1000;  /* Sørger for at navbaren alltid er over annet innhold */
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;  /* Sentraliserer logo og lenker vertikalt */
+  gap: 30px;  /* Litt avstand mellom logoen og lenkene */
+}
+
+/* Flex-container for logo og lenker */
+.navbar ul {
+  list-style-type: none;
+  display: flex;  /* Horisontal meny */
+  gap: 30px;  /* Avstand mellom lenkene */
+  margin: 0;
+  padding: 0;
+  align-items: center;  /* Sentraliserer lenker og logo vertikalt */
+}
+
+.navbar ul li a {
+  text-decoration: none;  /* Fjerner understreking */
+  color: white;  /* Hvit tekst */
+  font-weight: bold;
+  text-transform: uppercase;  /* Store bokstaver */
+  font-size: 16px;
+}
+
+.navbar ul li a:hover {
+  border-bottom: 2px solid white;  /* Understrekning ved hover */
+}
+
+/* Logout button */
+.logout-button {
+  background-color: white;
+  color: #1e94dd;;  /* Rød tekst */
+  padding: 5px 15px;  /* Litt mindre padding */
+  font-size: 14px;  /* Litt mindre skriftstørrelse */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: fixed;
+  top: 25px;
+  right: 100px;
+  
+}
+
+.logout-button:hover {
+  background-color: #1e94dd;
+  color: white;  /* Hvit tekst ved hover */
+}
+
+/* Styling for logoen */
+.profile-logo2 {
+  height: 50px;  /* Juster høyden på logoen */
+  width: auto;  /* Holder proporsjonene */
+}
+

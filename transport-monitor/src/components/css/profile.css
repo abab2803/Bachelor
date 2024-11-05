@@ -1,13 +1,18 @@
-/* profile.css */
+
+h1 {
+  margin-top: 100px;
+}
+
 .profile-container {
     text-align: center;
     padding: 20px;
   }
   
   .profile-logo {
-    width: 200px;  /* Juster størrelsen på logoen */
-    height: 200px;
+    width: 100px;  /* Juster størrelsen på logoen */
+    height: 100px;
     margin-bottom: 10px;  /* Litt avstand mellom logo og profilinformasjon */
     margin-top: 50px;
   }
+  
   

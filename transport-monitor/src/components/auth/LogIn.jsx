@@ -30,12 +30,14 @@ const LogIn = () => {
   return (
     <div>
 
-<img src="https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-fast-delivery-icon-delivery-icon-png-image_2047531.jpg" alt="Logo" className="profile-logo" />
+
 
         <div className='sign-in-container'>
+            
+            
         <form onSubmit={logIn}>
+        <img src="https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-fast-delivery-icon-delivery-icon-png-image_2047531.jpg" alt="Logo" className="profile-logo" />
     
-            <h1>Log in</h1>
             <input
                 type='email'
                 id='email'

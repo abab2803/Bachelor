@@ -1,44 +1,74 @@
 import React, { useState } from 'react';
-import "../css/auth.css";  // Importer CSS-filen her
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from "../../firebase";
 import { Link } from 'react-router-dom';
-import { setDoc, doc } from 'firebase/firestore';  // Importer Firestore funksjoner
+import { setDoc, doc, where, getDocs, collection, query } from 'firebase/firestore';  
+import "../css/auth.css";  
+
+const Modal = ({ message, onClose, isSuccess }) => {
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>&times;</span>
+        <p style={{ color: isSuccess ? 'green' : 'red' }}>{message}</p>
+      </div>
+    </div>
+  );
+};
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
-  const [role, setRole] = useState('customer');  // Standardrolle er 'customer'
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');  
+  const [isLoading, setIsLoading] = useState(false);  
+  const [showModal, setShowModal] = useState(false);  // State for modal
+  const [isSuccess, setIsSuccess] = useState(false);  // State for success message
 
-  // Funksjon som håndterer logikken etter at skjemaet er sendt inn
-  const register = (e) => {
-    e.preventDefault();  // Forhindre at siden reloades ved innsending
-
-    // Registrer bruker med e-post og passord
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        console.log(userCredential);
-
-        try {
-          // Lagre tilleggsinformasjon i Firestore, inkludert brukertype (role)
-          await setDoc(doc(db, "users", user.uid), {
-            name: name,
-            company: company,
-            email: email,
-            role: role,  // Legger til brukertype (admin eller customer)
-            uid: user.uid,
-          });
-          console.log("User registered and info saved to Firestore.");
-        } catch (error) {
-          console.error("Error saving user info to Firestore:", error);
-        }
-      })
-      .catch((error) => {
-        console.error("Error registering user:", error);
+  const register = async (e) => {
+    e.preventDefault();  
+    setError('');
+    setSuccess('');
+  
+    if (!email || !password) {
+      setError("Email and password are required.");
+      setIsSuccess(false);
+      setShowModal(true);
+      return;
+    }
+  
+    setIsLoading(true);
+    console.log("Attempting to register user with email:", email);
+  
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        company: company,
+        email: email,
+        role: "customer", 
+        uid: user.uid,
       });
+  
+      setSuccess("User added successfully!");
+      setIsSuccess(true);
+      setEmail('');
+      setPassword('');
+      setName('');
+      setCompany('');
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error registering user", error);
+      setError(error.message); // Vise spesifikk feilmelding
+      setIsSuccess(false);
+      setShowModal(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,18 +113,19 @@ const Register = () => {
           className="input-field"
           autoComplete="current-password"
         />
-        {/* Velg brukertype (admin eller customer) */}
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="input-field"
-        >
-          <option value="customer">Customer</option>
-          <option value="admin">Admin</option>
-        </select>
-        <button type='submit'>Create</button>
+
+        {isLoading ? <p>Creating account...</p> : <button type='submit'>Create</button>}
         <p>Already have an account? <Link to="/">Log in here</Link></p>
       </form>
+
+      {/* Vis modal hvis det er en feil eller suksess */}
+      {showModal && (
+        <Modal 
+          message={error || success} 
+          onClose={() => setShowModal(false)} 
+          isSuccess={isSuccess} // send isSucces prop
+        />
+      )}
     </div>
   );
 };
