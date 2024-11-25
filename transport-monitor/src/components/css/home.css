@@ -1,0 +1,79 @@
+
+  
+  
+ 
+
+  
+  /* Grid Layout for Cards */
+  .dashboard-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+  
+  /* Card styles */
+  .card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Adjust the width of the cards */
+    text-align: center;
+  }
+  
+  .card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #495057;
+  }
+  
+  .card p {
+    font-size: 2rem;
+    margin: 0;
+    color: #007bff; /* Blue color for the values */
+  }
+  
+  /* Chart Container */
+  .card > canvas {
+    width: 150%;
+    height: px;
+  }
+  
+  /* Make sure the cards stack properly on small screens */
+  @media (max-width: 10008px) {
+    .dashboard-cards {
+      flex-direction: row;
+      align-items: center;
+    }
+  
+    .card {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  }
+  
+  /* Additional styling for the chart */
+  .card canvas {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .card h2 {
+    font-size: 1.2em;
+    color: #343a40;
+  }
+  
+  .card p {
+    font-size: 1.5em;
+    color: #007bff;
+  }
+  
+  

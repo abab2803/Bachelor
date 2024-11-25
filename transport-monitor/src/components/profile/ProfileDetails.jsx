@@ -53,7 +53,7 @@ const ProfileDetails = () => {
     <h1>Profile</h1>
 
       <div className="profile-container">
-      {/* Legg til logoen øverst */}
+      {/* Legg til logoen Ã¸verst */}
       <img src="https://www.freeiconspng.com/thumbs/profile-icon-png/user-icon-png-person-user-profile-icon-20.png" alt="Logo" className="profile-logo" />
       <p><strong>Role:</strong> {userData.role}</p> {/* If you store the role */}
       <p><strong>Name:</strong> {userData.name}</p>

@@ -1,0 +1,23 @@
+.data-details-container {
+    padding: 20px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .data-table th, .data-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .data-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+  }
+  
