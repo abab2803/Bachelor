@@ -171,7 +171,7 @@ const Home = () => {
 
       <div className="content">
         <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '200px', fontSize: '4rem', marginBottom: '50px',  fontWeight: 'normal', textAlign: 'center' }}>
-           Welcome to the Dashboard
+           Welcome to  VirtualDrive
       </h1>
 
         {/* Kort for å vise antall */}
