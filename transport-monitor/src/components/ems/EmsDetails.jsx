@@ -76,7 +76,11 @@ const EmsDetails = () => {
         <Navbar />
       </header>
 
-      <h1>EMS Details</h1>
+      <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '100px', fontSize: '3rem', marginBottom: '30px',  fontWeight: 'normal', textAlign: 'center' }}>
+           Ems Details
+      </h1>
+
+      <Link to="/ems/manage-ems" className="add-ems-link">Manage Ems</Link>
 
       <table className="ems-table">
         <thead>
@@ -104,8 +108,6 @@ const EmsDetails = () => {
           ))}
         </tbody>
       </table>
-
-      <Link to="/ems/add-ems" className="add-ems-link">Add new EMS</Link>
     </div>
   );
 };

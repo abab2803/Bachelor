@@ -50,7 +50,10 @@ const ProfileDetails = () => {
       <Navbar />
     </header>
 
-    <h1>Profile</h1>
+    <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '200px', fontSize: '4rem', marginBottom: '30px',  fontWeight: 'normal', textAlign: 'center' }}>
+           User Details
+      </h1>
+
 
       <div className="profile-container">
       {/* Legg til logoen Ã¸verst */}

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;  /* Logo + lenker på venstre, logout på høyre */
   align-items: center;  /* Sentraliserer vertikalt */
-  background-color: #1e94dd;  /* Rød bakgrunnsfarge */
+  background-color: lightseagreen;  /* Rød bakgrunnsfarge */
   padding: 10px 20px;
   position: fixed;  /* Fikserer navbaren øverst på siden */
   top: 0;

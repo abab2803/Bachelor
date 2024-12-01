@@ -5,10 +5,15 @@ body {
   justify-content: flex-start; /* Plassere innholdet øverst */
   min-height: 100vh; /* Sørge for at body tar opp hele høyden */
   margin: 0; /* Fjerne standard margin */
+  background-color: lightcyan; 
+
 }
 
 h1 {
   margin-top: 80px;
+  color: black;
+  font-size: 40px;
+  
 }
 
 .vehicle-details-container {
@@ -18,6 +23,7 @@ h1 {
   width: 100%; /* Ta opp hele bredden */
   max-width: 800px; /* Sett en maksimal bredde for containeren */
   padding: 20px; /* Liten padding rundt containeren */
+  
 }
 
 .vehicle-list {
@@ -30,6 +36,7 @@ h1 {
   padding: 10px;
   max-height: 400px; /* Sett en maksimal høyde */
   overflow-y: auto; /* Aktiver vertikal rulling */
+  background-color: white; 
 }
 
 .vehicle-list-header {
@@ -71,3 +78,5 @@ h1 {
 .add-vehicle-link:hover {
   background-color: #0056b3;
 }
+
+

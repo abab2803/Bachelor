@@ -4,12 +4,13 @@ import LogIn from './components/auth/LogIn';
 import Register from './components/auth/register';
 import Home from './components/Home/Home';
 import EmsDetails from './components/ems/EmsDetails';
-import AddEms from './components/ems/AddEms';
 import VehicleDetails from './components/Vehicles/VehicleDetails';
-import AddVehicle  from './components/Vehicles/AddVehicle';
+import ManageVehicles  from './components/Vehicles/ManageVehicles';
 import DataDetails from './components/data/DataDetails';
 import MapDetails from './components/maps/MapDetails';
 import ProfileDetails from './components/profile/ProfileDetails';
+import ManageEms from './components/ems/ManageEms';
+
 function App() {
   return (
     <div className="App">
@@ -21,9 +22,9 @@ function App() {
           <Route path="/home" element={<Home />} />
            {/* Undersider som bruker samme navbar */}
            <Route path="/ems" element={<EmsDetails />} />
-           <Route path="/ems/add-ems" element={<AddEms />} />
+           <Route path="/ems/manage-ems" element={<ManageEms />} />
            <Route path="/vehicles" element={<VehicleDetails />} />
-           <Route path="/vehicles/add-vehicles" element={<AddVehicle />} />
+           <Route path="/vehicles/manage-vehicles" element={<ManageVehicles />} />
            <Route path="/maps" element={<MapDetails />} />
            <Route path="/data" element={<DataDetails />} />
            <Route path="/profile" element={<ProfileDetails />} />

@@ -24,6 +24,8 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: white; 
+
   }
   
   .ems-table th, .ems-table td {
@@ -33,12 +35,12 @@ body {
   }
   
   .ems-table th {
-    background-color: #f4f4f4;
+    background-color: white;
     font-weight: bold;
   }
   
   .ems-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: white;
   }
   
   .ems-table tr:hover {
@@ -46,7 +48,7 @@ body {
   }
   
   .add-ems-link {
-    margin-top: 20px;
+    margin-top: 0px;
     text-align: center;
     padding: 10px;
     background-color: #007BFF;

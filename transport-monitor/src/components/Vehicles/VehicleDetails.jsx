@@ -99,7 +99,9 @@ const VehicleDetails = () => {
       <header className='header'>
       <Navbar />
     </header>
-      <h1>Transport Details</h1>
+    <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '100px', fontSize: '3rem', marginBottom: '30px',  fontWeight: 'normal', textAlign: 'center' }}>
+           Transport Details
+      </h1>
 
       {/* Tabell eller liste over kjøretøy */}
       <div className="vehicle-list">
@@ -119,7 +121,7 @@ const VehicleDetails = () => {
           </div>
         ))}
       </div>
-      <Link to="/vehicles/add-vehicles" className="add-vehicle-link">Add new Vehicle</Link>
+      <Link to="/vehicles/manage-vehicles" className="add-vehicle-link">Manage Vehicles</Link>
     </div>
   );
 };

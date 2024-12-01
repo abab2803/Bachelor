@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Common/Navbar';
 import { db, auth } from '../../firebase'; 
-import { collection, query, where, getDocs, getDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, getDoc, doc, addDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
-const AddEms = () => {
+const ManageEms = () => {
+  const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [emsId, setEmsId] = useState('');
   const [vehicleId, setVehicleId] = useState('');
   const [vehicles, setVehicles] = useState([]);
   const [sensors, setSensors] = useState([{ sensorId: '', type: 'temperature' }]);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  const [emsList, setEmsList] = useState([]);
+  const [selectedEmsId, setSelectedEmsId] = useState('');
 
   const sensorTypes = ['temperature', 'GPS', 'humidity', 'pressure'];
 
@@ -51,6 +57,43 @@ const AddEms = () => {
     fetchVehicles();
   }, []);
 
+  // Fetch EMS list from Firestore
+  useEffect(() => {
+    const fetchEmsList = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          console.error('User not authenticated');
+          return;
+        }
+
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const userRole = userDoc.exists() ? userDoc.data().role : null;
+
+        let q;
+        const emsCollection = collection(db, 'ems');
+
+        if (userRole === 'admin') {
+          q = query(emsCollection);
+        } else {
+          q = query(emsCollection, where('customerId', '==', user.uid));
+        }
+
+        const querySnapshot = await getDocs(q);
+        const emsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setEmsList(emsData);
+      } catch (error) {
+        console.error('Error fetching EMS list:', error);
+      }
+    };
+
+    fetchEmsList();
+  }, []);
+
   const handleSensorChange = (index, field, value) => {
     const newSensors = [...sensors];
     newSensors[index][field] = value;
@@ -59,6 +102,14 @@ const AddEms = () => {
 
   const addSensorField = () => {
     setSensors([...sensors, { sensorId: '', type: 'temperature' }]);
+  };
+
+  const resetForm = () => {
+    setEmsId('');
+    setVehicleId('');
+    setSensors([{ sensorId: '', type: 'temperature' }]);
+    setSelectedEmsId('');
+    setMessage('');
   };
 
   const handleSubmit = async (e) => {
@@ -76,21 +127,41 @@ const AddEms = () => {
         return;
       }
 
-      await addDoc(collection(db, 'ems'), {
-        emsId,                
-        customerId: user.uid, 
-        vehicleId,
-        sensors,
-        timestamp: serverTimestamp()  
-      });
+      if (isUpdateMode) {
+        // Update existing EMS
+        if (!selectedEmsId) {
+          console.error('EMS is not selected');
+          setMessage('Please select an EMS to update');
+          return;
+        }
 
-      setMessage('EMS registered successfully!');
-      setEmsId('');
-      setVehicleId('');
-      setSensors([{ sensorId: '', type: 'temperature' }]);
+        const emsDocRef = doc(db, 'ems', selectedEmsId);
+
+        await updateDoc(emsDocRef, {
+          emsId,
+          vehicleId,
+          sensors,
+          timestamp: serverTimestamp(),
+        });
+
+        setMessage('EMS updated successfully!');
+      } else {
+        // Add new EMS
+        await addDoc(collection(db, 'ems'), {
+          emsId,                
+          customerId: user.uid, 
+          vehicleId,
+          sensors,
+          timestamp: serverTimestamp()  
+        });
+
+        setMessage('EMS registered successfully!');
+      }
+
+      resetForm();
     } catch (error) {
-      console.error('Error registering EMS:', error);
-      setMessage('Failed to register EMS. Please try again.');
+      console.error('Error submitting EMS:', error);
+      setMessage('Failed to submit EMS. Please try again.');
     }
   };
 
@@ -100,10 +171,65 @@ const AddEms = () => {
         <Navbar />
       </header>
 
-      <h1 style={styles.title}>Add EMS</h1>
+      <h1 style={styles.title}>{isUpdateMode ? 'Update EMS' : 'Add EMS'}</h1>
+
+      <div style={styles.modeToggle}>
+        <button onClick={() => navigate(-1)} style={styles.backButton}>
+          Go back
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsUpdateMode(false);
+            resetForm();
+          }}
+          style={!isUpdateMode ? styles.addButton : styles.updateButton}
+        >
+          Add
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsUpdateMode(true);
+            resetForm();
+          }}
+          style={isUpdateMode ? styles.addButton : styles.updateButton}
+        >
+          Update 
+        </button>
+      </div>
+
       <div style={styles.container}>
         {message && <p style={styles.message}>{message}</p>}
         <form onSubmit={handleSubmit} style={styles.form}>
+          {isUpdateMode && (
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Choose the EMS to update:</label>
+              <select
+                value={selectedEmsId}
+                onChange={(e) => {
+                  const emsId = e.target.value;
+                  setSelectedEmsId(emsId);
+                  const selectedEms = emsList.find(ems => ems.id === emsId);
+                  if (selectedEms) {
+                    setEmsId(selectedEms.emsId);
+                    setVehicleId(selectedEms.vehicleId);
+                    setSensors(selectedEms.sensors);
+                  }
+                }}
+                required
+                style={styles.select}
+              >
+                <option value="" disabled>Choose an EMS</option>
+                {emsList.map(ems => (
+                  <option key={ems.id} value={ems.id}>
+                    {ems.emsId}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <div style={styles.formGroup}>
             <label style={styles.label}>EMS ID:</label>
             <input
@@ -112,6 +238,7 @@ const AddEms = () => {
               onChange={(e) => setEmsId(e.target.value)}
               required
               style={styles.input}
+              disabled={isUpdateMode}
             />
           </div>
 
@@ -164,7 +291,9 @@ const AddEms = () => {
             </button>
           </div>
 
-          <button type='submit' style={styles.submitButton}>Register EMS</button>
+          <button type='submit' style={styles.submitButton}>
+            {isUpdateMode ? 'Oppdater EMS' : 'Registrer EMS'}
+          </button>
         </form>
       </div>
     </div>
@@ -187,6 +316,12 @@ const styles = {
     textAlign: 'center',
     marginBottom: '20px',
     color: '#333',
+    fontFamily: "'DM Serif Text', serif", 
+    marginTop: '100px', 
+    fontSize: '3rem', 
+    marginBottom: '50px', 
+    fontWeight: 'normal',
+    textAlign: 'center'
   },
   message: {
     textAlign: 'center',
@@ -242,9 +377,44 @@ const styles = {
     marginBottom: '15px',
   },
   subTitle: {
-    fontWeight: 'bold',
+    fontWeight: 'bold',  
     marginBottom: '10px',
   },
+  modeToggle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
+  },
+  addButton: {
+    backgroundColor: '#007BFF',
+    color: 'white',
+    border: 'none',
+    padding: '10px 15px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    margin: '0 5px',
+  },
+  updateButton: {
+    backgroundColor: '#6c757d',
+    color: 'white',
+    border: 'none',
+    padding: '10px 15px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    margin: '0 5px',
+  },
+  backButton: {
+    backgroundColor: '#007BFF',
+    color: 'white',
+    border: 'none',
+    padding: '10px 15px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    margin: '0 5px'}
+
 };
 
-export default AddEms;
+export default ManageEms;
