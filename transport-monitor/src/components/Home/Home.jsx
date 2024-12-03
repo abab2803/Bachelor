@@ -170,7 +170,7 @@ const Home = () => {
       </header>
 
       <div className="content">
-        <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '200px', fontSize: '4rem', marginBottom: '50px',  fontWeight: 'normal', textAlign: 'center' }}>
+        <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '120px', fontSize: '4rem', marginBottom: '50px',  fontWeight: 'normal', textAlign: 'center' }}>
            Welcome to  VirtualDrive
       </h1>
 

@@ -1,5 +1,3 @@
-// src/components/auth/PrivateRoute.jsx
-
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';

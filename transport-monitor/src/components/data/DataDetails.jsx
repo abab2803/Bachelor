@@ -201,7 +201,7 @@ const DataDetails = () => {
                 <Navbar />
             </header>
             <div className="content">
-            <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '100px', fontSize: '3rem', marginBottom: '30px',  fontWeight: 'normal', textAlign: 'center' }}>
+            <h1 style={{ fontFamily: "'DM Serif Text', serif", marginTop: '60px', fontSize: '3rem', marginBottom: '30px',  fontWeight: 'normal', textAlign: 'center' }}>
                 See All Sensor Data
             </h1>
 
@@ -236,7 +236,7 @@ const DataDetails = () => {
                                         <span>{data.type}</span>
                                         <span>
                                             {data.type === "GPS"
-                                                ? `Latitude: ${data.latitude}, Longitude: ${data.longitude}`
+                                                ? `Lat: ${data.latitude}, Long: ${data.longitude}`
                                                 : data.value}
                                         </span>
                                         <span>{data.timestamp}</span>
