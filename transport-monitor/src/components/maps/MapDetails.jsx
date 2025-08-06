@@ -164,7 +164,7 @@ const MapDetails = () => {
 
     if (gpsDataPoints.length >= 2) {
       // Create a GeoJSON LineString from gpsDataPoints
-      const coordinates = gpsDataPoints.map((point) => [point.latitude, point.longitude]);
+      const coordinates = gpsDataPoints.map((point) => [point.longitude, point.latitude]);
 
       const geojson = {
         type: "Feature",
@@ -243,7 +243,7 @@ const MapDetails = () => {
       `;
 
       const marker = new mapboxgl.Marker()
-        .setLngLat([point.latitude, point.longitude])
+        .setLngLat([point.longitude, point.latitude])
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent)
         )
@@ -294,7 +294,7 @@ const MapDetails = () => {
       <div style={{ display: "flex", flexDirection: "column", height: "100%", marginTop: "60px" }}>
         <div style={{ marginBottom: "20px", padding: "10px" }}>
           <label htmlFor="vehicleDropdown" style={{ marginRight: "10px" }}>
-            Velg et kjøretøy:
+            Choose a vehicle:
           </label>
           <select
             id="vehicleDropdown"
@@ -310,7 +310,7 @@ const MapDetails = () => {
           </select>
 
           <label htmlFor="emsDropdown" style={{ marginRight: "10px" }}>
-            Velg en EMS:
+            Choose an EMS:
           </label>
           <select
             id="emsDropdown"

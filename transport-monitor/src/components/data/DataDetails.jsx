@@ -37,7 +37,7 @@ const DataDetails = () => {
         doc.setTextColor(100);
     
         // Forbered dataene for tabellen
-        const tableColumn = ["Company", "Name", "Vehicle ID", "EMS ID", "Sensor ID", "Type", "Value", "Timestamp"]; // Oppdater kolonnene
+        const tableColumn = ["Company", "Name", "Vehicle ID", "EMS ID", "Sensor ID", "Type", "Value", "Timestamp"]; 
         const tableRows = [];
     
         sensorData.forEach(data => {
@@ -46,7 +46,7 @@ const DataDetails = () => {
                 : data.value;
     
             const rowData = [
-                data.company || '',     // Legg til denne linjen
+                data.company || '',     //
                 data.name || '',
                 data.vehicleId || '',
                 data.emsId || '',

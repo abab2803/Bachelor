@@ -18,7 +18,7 @@
   gap: 30px;  /* Litt avstand mellom logoen og lenkene */
 }
 
-/* Flex-container for logo og lenker */
+/* Flex-container for logo og lenker */ 
 .navbar ul {
   list-style-type: none;
   display: flex;  /* Horisontal meny */
